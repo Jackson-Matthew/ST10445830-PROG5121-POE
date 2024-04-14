@@ -1,7 +1,6 @@
 package ST10445830;
 
-
-//git hub test
+//git hub test for pushing code
 
 public class ST10445830 {
 

@@ -13,10 +13,11 @@ import java.util.regex.Pattern;
 // start of program //
 public class Login {
     
-   //these variables are private static outside of the methods so that they can be accessed independently 
+   //these variables are public static outside of the methods so that they can be accessed independently
    public static String username1;
    public static String password1;
-   public static String wronguser;
+   public static String loginUsername;
+   public static String loginPassword;
    public static String name;
    public static String surname;
    
@@ -40,10 +41,9 @@ public class Login {
          
          name = field1.getText();
          surname = field2.getText();
-   
-    
     }
-   public static boolean checkUserName(){
+     
+   public static void checkUserName(){
     
          boolean validusername;
         
@@ -68,7 +68,7 @@ public class Login {
              && username1.contains("_")) {      //username parameters
             JOptionPane.showMessageDialog(null,"Username succesfully captured");
             
-            validusername = true;
+            validusername = false;
             
         } 
          
@@ -79,13 +79,11 @@ public class Login {
             > Has 1 underscore"""
             ,"Invaild username",JOptionPane.ERROR_MESSAGE );
             
-            validusername = false;
+            validusername = true;
             
           }
          
-         }while (!validusername);  
-     
-     return validusername;
+         }while (validusername);
      
        } //end of username loop
 
@@ -130,9 +128,7 @@ public class Login {
    public static void loginUser(){
         
          boolean correctlogin;  
-         String loginUsername;
-         String loginPassword;
-
+     
      do{
             
          JTextField field1 = new JTextField();
@@ -181,3 +177,9 @@ public class Login {
 }
 // end of program //
 
+/*
+   REFERENCE LIST
+
+
+
+*/
