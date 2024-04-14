@@ -14,10 +14,11 @@ import java.util.regex.Pattern;
 public class Login {
     
    //these variables are private static outside of the methods so that they can be accessed independently 
-   private static String username1;
-   private static String password1;
-   private static String name;
-   private static String surname;
+   public static String username1;
+   public static String password1;
+   public static String wronguser;
+   public static String name;
+   public static String surname;
    
     public static void name_surname(){
         
@@ -42,7 +43,7 @@ public class Login {
    
     
     }
-   public static void checkUserName(){
+   public static boolean checkUserName(){
     
          boolean validusername;
         
@@ -67,19 +68,25 @@ public class Login {
              && username1.contains("_")) {      //username parameters
             JOptionPane.showMessageDialog(null,"Username succesfully captured");
             
-            validusername = false;
+            validusername = true;
             
-        } else {
+        } 
+         
+         else {  
             JOptionPane.showMessageDialog(null,"""
             Username is not correclty formatted please ensure that your username contains:                                   
             > No more than 5 characters 
             > Has 1 underscore"""
             ,"Invaild username",JOptionPane.ERROR_MESSAGE );
             
-            validusername = true;
+            validusername = false;
+            
           }
          
-         }while (validusername);      
+         }while (!validusername);  
+     
+     return validusername;
+     
        } //end of username loop
 
    public static void checkPasswordComplexity(){
