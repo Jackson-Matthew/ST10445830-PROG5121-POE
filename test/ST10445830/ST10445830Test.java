@@ -8,16 +8,32 @@ package ST10445830;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Test;
 
+
+
 public class ST10445830Test {
 
     @Test  //this unit test checks if the CheckUserName method works
     
     public void testCheckUserName() {
         
+        Login user = new Login();
         String Expected = "kyl_1";    // This will be a valid username
-        Login.checkUserName();
+        user.checkUserName();
         String Actual = Login.username1;
         assertEquals(Expected,Actual);
+        System.out.println("Valid username");
+        
+}
+     @Test  
+    
+    public void testCheckUserName1() {
+        
+    Login user = new Login();
+    String Expected = "kyle!!!!!!!!";
+    user.checkUserName();
+    String Actual = Login.username1;
+    assertEquals(Expected,Actual);
+    System.out.println("invalid username");
         
 }
     
@@ -30,6 +46,8 @@ public class ST10445830Test {
         String Actual = Login.password1;
         assertEquals(Expected,Actual);
 }
+   
+
     
     @Test // this unit test checks if the loginUser method works
     
@@ -46,8 +64,5 @@ public class ST10445830Test {
     }
     
 }
-
-
-
 
 

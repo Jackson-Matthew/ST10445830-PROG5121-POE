@@ -29,7 +29,7 @@ public class Login {
                
          JPanel panel = new JPanel();
        
-         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));     //indicates the format of the panel,(the orientation of the boxess )
+         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));     
        
          panel.add(new JLabel("Enter Name"));
          panel.add(field1);
@@ -102,9 +102,9 @@ public class Login {
            ,"Password Creation", JOptionPane.QUESTION_MESSAGE );
          
          if (password1.length() >= 8 //password parameters
-             && Pattern.compile("[!@#$%^&*?_]").matcher(password1).find() 
-             && Pattern.compile("[A-Z]").matcher(password1).find()
-             && Pattern.compile("[0-9]").matcher(password1).find())
+             && Pattern.compile("[A-Z]").matcher(password1).find() //the pattern import allows for a string to be checked for certain characters
+             && Pattern.compile("[0-9]").matcher(password1).find() //
+             && Pattern.compile("[!@#$%^&*?_.<>/]").matcher(password1).find())
          {      
             JOptionPane.showMessageDialog(null,"Password succesfully captured");
             
@@ -122,7 +122,8 @@ public class Login {
             validpassword = true;
          }
          
-         }while(validpassword);    
+         }while(validpassword); 
+     
        } //end of password loop
     
    public static void loginUser(){
@@ -146,7 +147,9 @@ public class Login {
         
          JOptionPane.showConfirmDialog(null, panel,"Login",JOptionPane.OK_CANCEL_OPTION);
          
-         //The Jpanel along with the JTextField allow for two input boxes withing the JOptionPane, this makes the login page alot simpler
+         /*The Jpanel along with the JTextField allow for two input boxes withing the JOptionPane, 
+         this makes the login page alot simpler, each panel.add creates
+         */
            
          loginUsername = field1.getText();
          loginPassword = field2.getText();
@@ -177,9 +180,3 @@ public class Login {
 }
 // end of program //
 
-/*
-   REFERENCE LIST
-
-
-
-*/
