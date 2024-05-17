@@ -1,0 +1,62 @@
+# This is a basic workflow to help you get started with Actions
+
+name: TestPROGPOE
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # List contents of the directory
+      - name: List contents
+        run: ls
+
+      # Compile classes to test
+      - name: Compile classes
+        working-directory: ./src
+        run: javac -cp "../testresources/junit-platform-console-standalone-1.6.0.jar" ./ST10445830/ST10445830.java ./ST10445830/Login.java  "../test/ST10445830/TaskTest.java"
+      
+      # List contents of src to verify that classes compiled
+      - name: List contents of src directory after compile
+        working-directory: ./src/ST10445830
+        run: ls
+
+      # Copy compiled classes to testresources directory
+      - name: Copy compiled classes to testresources directory
+        working-directory: ./src/ST10445830
+        run: cp -t "../../testresources/ST10445830" ST10445830.class Login.class Task.class
+
+      # Copy compiled test classes
+      - name: Copy compiled test classes to testresources directory
+        working-directory: ./test/ST10445830
+        run: cp -t "../../testresources/" ST10445830Test.class TaskTest.class
+
+      # List contents of test package
+      - name: List contents of test package
+        working-directory: ./test/ST10445830
+        run: ls
+
+      # Run Task class tests and create report
+      - name: Run Task class tests and create report
+        working-directory: ./test
+        run: |
+         ls
+         java -jar "../testresources/junit-platform-console-standalone-1.6.0.jar" -cp "." --select-class ST10445830.TaskTest
