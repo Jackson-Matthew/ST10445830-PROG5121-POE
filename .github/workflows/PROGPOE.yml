@@ -21,7 +21,7 @@ jobs:
         run: |
           javac -cp "./testresources/junit-platform-console-standalone-1.6.0.jar" \
           ./src/ST10445830/ST10445830.java \
-          ./src/ST10445830/Login.java \
+          ./test/ST10445830/ST10445830Test.java \
           ./test/ST10445830/TaskTest.java
 
       - name: List contents of src directory after compile
@@ -30,15 +30,21 @@ jobs:
       - name: Copy compiled classes to testresources directory
         run: |
           cp ./src/ST10445830/ST10445830.class ./testresources/
-          cp ./src/ST10445830/Login.class ./testresources/
           cp ./src/ST10445830/Task.class ./testresources/
 
       - name: Copy compiled Test classes to testresources directory
         run: |
+          cp ./test/ST10445830/ST10445830Test.class ./testresources/
           cp ./test/ST10445830/TaskTest.class ./testresources/
 
       - name: List contents of test package
         run: ls ./test/ST10445830
+
+      - name: Run main class tests and create report
+        run: |
+          ls ./test
+          java -jar ./testresources/junit-platform-console-standalone-1.6.0.jar \
+          -cp ./testresources --select-class ST10445830.ST10445830Test
 
       - name: Run Task class tests and create report
         run: |
