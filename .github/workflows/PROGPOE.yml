@@ -32,31 +32,41 @@ jobs:
       # Compile classes to test
       - name: Compile classes
         working-directory: ./src
-        run: javac -cp "../testresources/junit-platform-console-standalone-1.6.0.jar" ./ST10445830/ST10445830.java ./ST10445830/Login.java  "../test/ST10445830/TaskTest.java"
+        run: javac -cp "../testresources/junit-platform-console-standalone-1.6.0.jar" ./ST10445830/ST10445830.java ./ST10445830/Login.java ./ST10445830/Task.java "../test/ST10445830/ST10445830Test.java" "../test/ST10445830/TaskTest.java"
       
       # List contents of src to verify that classes compiled
       - name: List contents of src directory after compile
         working-directory: ./src/ST10445830
         run: ls
 
+      # Create testresources directory if it doesn't exist
+      - name: Create testresources directory
+        run: mkdir -p testresources/ST10445830
+
       # Copy compiled classes to testresources directory
       - name: Copy compiled classes to testresources directory
         working-directory: ./src/ST10445830
-        run: cp -t "../../testresources/ST10445830" ST10445830.class Login.class Task.class
+        run: cp ST10445830.class Login.class Task.class ../../testresources/ST10445830
 
-      # Copy compiled test classes
+      # Copy compiled test classes to testresources directory
       - name: Copy compiled test classes to testresources directory
         working-directory: ./test/ST10445830
-        run: cp -t "../../testresources/" ST10445830Test.class TaskTest.class
+        run: cp ST10445830Test.class TaskTest.class ../../testresources/ST10445830
 
-      # List contents of test package
-      - name: List contents of test package
-        working-directory: ./test/ST10445830
-        run: ls
+      # List contents of testresources directory to verify files were copied
+      - name: List contents of testresources directory
+        run: ls testresources/ST10445830
 
+      # Run main class tests and create report
+      - name: Run main class tests and create report
+        working-directory: ./test
+        run: |
+          ls
+          java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" -Djava.awt.headless=true org.junit.platform.console.ConsoleLauncher --select-class ST10445830.ST10445830Test
+          
       # Run Task class tests and create report
       - name: Run Task class tests and create report
         working-directory: ./test
         run: |
-         ls
-         java -jar "../testresources/junit-platform-console-standalone-1.6.0.jar" -cp "." --select-class ST10445830.TaskTest
+          ls
+          java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" -Djava.awt.headless=true org.junit.platform.console.ConsoleLauncher --select-class ST10445830.TaskTest
