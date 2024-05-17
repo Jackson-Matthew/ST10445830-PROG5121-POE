@@ -62,11 +62,11 @@ jobs:
         working-directory: ./test
         run: |
           ls
-          java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" org.junit.platform.console.ConsoleLauncher --select-class ST10445830.ST10445830Test
+          java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" -Djava.awt.headless=true org.junit.platform.console.ConsoleLauncher --select-class ST10445830.ST10445830Test
           
       # Run Task class tests and create report
       - name: Run Task class tests and create report
         working-directory: ./test
         run: |
           ls
-          java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" org.junit.platform.console.ConsoleLauncher --select-class ST10445830.TaskTest
+          java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" -Djava.awt.headless=true org.junit.platform.console.ConsoleLauncher --select-class ST10445830.TaskTest
