@@ -1,68 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 package ST10445830;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Test;
-
-
+import static org.junit.Assert.*;
 
 public class ST10445830Test {
 
-    @Test  //this unit test checks if the CheckUserName method works
-    
-    public void testCheckUserName() {
-        
-        Login user = new Login();
-        String Expected = "kyl_1";    // This will be a valid username
-        user.checkUserName();
-        String Actual = Login.username1;
-        assertEquals(Expected,Actual);
-        System.out.println("Valid username");
-        
-}
-     @Test  
-    
-    public void testCheckUserName1() {
-        
-    Login user = new Login();
-    String Expected = "kyle!!!!!!!!";
-    user.checkUserName();
-    String Actual = Login.username1;
-    assertEquals(Expected,Actual);
-    System.out.println("invalid username");
-        
-}
-    
-    @Test //this unit test checks if the checkPasswordComplexity method works
-    
-    public void testcheckPasswordComplexity() {
-        
-        String Expected = "Ch&&sec@ke99!";    // This will be a valid password
-        Login.checkPasswordComplexity();
-        String Actual = Login.password1;
-        assertEquals(Expected,Actual);
-}
-   
+    Login login = new Login();
 
-    
-    @Test // this unit test checks if the loginUser method works
-    
-    public void testloginUser(){
+    @Test
+    public void testValidUsername() {
+        boolean check;
         
-        String Expected = "kyl_1";    
-        String Expected2 = "Ch&&sec@ke99!";
-        Login.loginUser();
-        String Actual = Login.username1;
-        String Actual2 = Login.password1;
-        assertEquals(Expected,Actual);
-        assertEquals(Expected2,Actual2);
-         
+        assertTrue(check = Login.isValidUsername("kyl_1"));
+        System.out.println(check);
     }
-    
-}
 
+    @Test
+    public void testValidUsername2() {
+        boolean check;
+        assertFalse(check = Login.isValidUsername("kyle!!!!!!!!"));
+        System.out.println(check);
+
+    }
+
+    @Test
+
+    public void testValidPassword() {
+        boolean check;
+        assertTrue(check = Login.isValidPassword("Ch&&sec@ke99!"));
+        System.out.println(check);
+    }
+
+    @Test
+    public void testValidPassword2() {
+        assertFalse(Login.isValidPassword("password"));
+        System.out.println("false");
+    }
+
+}
 
