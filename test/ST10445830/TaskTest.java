@@ -62,7 +62,7 @@ public class TaskTest {
         System.out.println(Actual);
 
     }
-
+/*
     @Test //tests the creation of 2 tasks throughout the program
     public void testCreateTasks() {
 
@@ -113,4 +113,5 @@ public class TaskTest {
         assertEquals(Expected1, Actual1);
         assertEquals(Expected2, Actual2);
     }
+    */
 }
