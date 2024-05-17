@@ -39,6 +39,10 @@ jobs:
         working-directory: ./src/ST10445830
         run: ls
 
+      # Create testresources directory if it doesn't exist
+      - name: Create testresources directory
+        run: mkdir -p testresources/ST10445830
+
       # Copy compiled classes to testresources directory
       - name: Copy compiled classes to testresources directory
         working-directory: ./src/ST10445830
