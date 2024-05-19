@@ -12,19 +12,20 @@ public class Task {
     //the main menu that contantly loops, controlls how tasks are made aswell as allows the application to quit
     public static void menu1() {
 
+        JOptionPane.showMessageDialog(null, "Welcome to EasyKanBan !");
+
         String[] options = {"1) Create Task", "2) Show report", "3) quit"};
         int menu = -1;
 
         while (menu != 2) {
-            menu = JOptionPane.showOptionDialog(null, "Welcome to easy KanBan", "Main Menu ", JOptionPane.DEFAULT_OPTION,
+            menu = JOptionPane.showOptionDialog(null, "Menu Selection", "Main Menu ", JOptionPane.DEFAULT_OPTION,
                     JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
             switch (menu) {
                 case 0:
                     createTask();
-                    
                     JOptionPane.showMessageDialog(null, "Total combined hours of all Tasks: \n"
-               + totalHours + " Hours");
+                            + totalHours + " Hours");
                     break;
                 case 1:
                     ShowReport();
@@ -102,7 +103,12 @@ public class Task {
                         taskDurations[i] = Integer.parseInt(taskduration.getText());
 
                         Task.printTaskDetails(selectedItem, DeveloperDetails, TaskName, TaskDescription, taskID, TaskDuration);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Description too long, please enter no more than 50 characters",
+                                "Invalid description", JOptionPane.ERROR_MESSAGE);
                     }
+
                 } else {
                     taskCounter--; //will fix the task if it is cancelled
                     i--;
@@ -117,13 +123,7 @@ public class Task {
 
     public static boolean checkTaskDescription(String description) {
 
-        if (description.length() <= 50) {
-            return true;
-        } else {
-            JOptionPane.showMessageDialog(null, "Description too long, please enter no more than 50 characters",
-                    "Invalid description", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+        return description.length() <= 50;
     }
 
     public static String createTaskID(int taskNumber, String taskName, String devDetails) {
@@ -166,7 +166,7 @@ public class Task {
         for (int duration : taskDurations) {
             totalHours += duration;
         }
-          
+
         return totalHours;
     }
 
@@ -176,5 +176,4 @@ public class Task {
     }
 }
 //End of Program
-
 
