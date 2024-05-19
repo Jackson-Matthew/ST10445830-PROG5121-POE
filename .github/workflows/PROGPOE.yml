@@ -62,21 +62,12 @@ jobs:
           ls
           java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" org.junit.platform.console.ConsoleLauncher --select-class ST10445830.ST10445830Test
 
-      # Install Xvfb (only required for Task class tests)
-      - name: Install Xvfb
-        run: sudo apt-get install -y xvfb
-
-      # Start Xvfb (only required for Task class tests)
-      - name: Start Xvfb
-        run: Xvfb :99 -screen 0 1024x768x24 &
-
-      # Set the DISPLAY environment variable (only required for Task class tests)
-      - name: Set DISPLAY
-        run: echo "DISPLAY=:99" >> $GITHUB_ENV
-
-      # Run Task class tests and create report
-      - name: Run Task class tests and create report
+      # Run Task class tests with Xvfb
+      - name: Run Task class tests with Xvfb
         working-directory: ./test
         run: |
-          ls
+          sudo apt-get install -y xvfb
+          Xvfb :99 -screen 0 1024x768x24 &
+          export DISPLAY=:99
+          sleep 3  # Give Xvfb some time to start
           java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" org.junit.platform.console.ConsoleLauncher --select-class ST10445830.TaskTest
