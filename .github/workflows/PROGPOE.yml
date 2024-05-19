@@ -67,7 +67,8 @@ jobs:
         working-directory: ./test
         run: |
           sudo apt-get install -y xvfb
-          Xvfb :99 -screen 0 1024x768x24 &
+          (Xvfb :99 -screen 0 1024x768x24 &)
           export DISPLAY=:99
           sleep 3  # Give Xvfb some time to start
           java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" org.junit.platform.console.ConsoleLauncher --select-class ST10445830.TaskTest
+          killall Xvfb
