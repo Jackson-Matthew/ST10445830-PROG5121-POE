@@ -61,14 +61,10 @@ jobs:
         run: |
           ls
           java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" org.junit.platform.console.ConsoleLauncher --select-class ST10445830.ST10445830Test
-
-      # Run Task class tests with Xvfb
-      - name: Run Task class tests with Xvfb
+          
+      # Run Task class tests and create report
+      - name: Run Task class tests and create report
         working-directory: ./test
         run: |
-          sudo apt-get install -y xvfb
-          trap 'kill $(jobs -p)' EXIT
-          Xvfb :99 -screen 0 1024x768x24 &
-          export DISPLAY=:99
-          sleep 3  # Give Xvfb some time to start
+          ls
           java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" org.junit.platform.console.ConsoleLauncher --select-class ST10445830.TaskTest
