@@ -53,7 +53,8 @@ public class TaskTest {
 
     @Test //tests different ammount of values put in by users,as indicated by the array
     public void testReturnTotalHours() {
-
+        
+        
         int[] taskDurations = {10, 12, 55, 11, 1};
         int Expected = 89;
         int Actual = Task.returnTotalHours(taskDurations);
