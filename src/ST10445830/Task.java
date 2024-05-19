@@ -22,6 +22,9 @@ public class Task {
             switch (menu) {
                 case 0:
                     createTask();
+                    
+                    JOptionPane.showMessageDialog(null, "Total combined hours of all Tasks: \n"
+               + totalHours + " Hours");
                     break;
                 case 1:
                     ShowReport();
@@ -42,6 +45,7 @@ public class Task {
     public static String TaskDescription;
     public static String taskID;
     public static String TaskDuration;
+    public static int totalHours;
 
     public static final int[] taskDurations = new int[20];
 
@@ -158,13 +162,11 @@ public class Task {
 
     public static int returnTotalHours(int[] taskDurations) {
 
-        int totalHours = 0;
+        totalHours = 0;
         for (int duration : taskDurations) {
             totalHours += duration;
         }
-        JOptionPane.showMessageDialog(null, "Total combined hours of all Tasks: \n"
-                + totalHours + " Hours", "Total Hours", JOptionPane.PLAIN_MESSAGE);
-
+          
         return totalHours;
     }
 
@@ -174,4 +176,5 @@ public class Task {
     }
 }
 //End of Program
+
 
