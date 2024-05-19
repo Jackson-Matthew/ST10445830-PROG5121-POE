@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: TestPROGPOE
 
 # Controls when the workflow will run
@@ -24,6 +22,18 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+
+      # Install Xvfb
+      - name: Install Xvfb
+        run: sudo apt-get install -y xvfb
+
+      # Start Xvfb
+      - name: Start Xvfb
+        run: Xvfb :99 -screen 0 1024x768x24 &
+
+      # Set the DISPLAY environment variable
+      - name: Set DISPLAY
+        run: echo "DISPLAY=:99" >> $GITHUB_ENV
 
       # List contents of the directory
       - name: List contents
