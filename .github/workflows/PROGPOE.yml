@@ -2,81 +2,88 @@ name: TestPROGPOE
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Install Xvfb
       - name: Install Xvfb
-        run: sudo apt-get install -y xvfb
+        run: |
+          echo "Installing Xvfb"
+          sudo apt-get update
+          sudo apt-get install -y xvfb
 
-      # Start Xvfb
       - name: Start Xvfb
-        run: Xvfb :99 -screen 0 1024x768x24 &
+        run: |
+          echo "Starting Xvfb"
+          Xvfb :99 -screen 0 1024x768x24 &
 
-      # Set the DISPLAY environment variable
       - name: Set DISPLAY
-        run: echo "DISPLAY=:99" >> $GITHUB_ENV
+        run: |
+          echo "Setting DISPLAY"
+          echo "DISPLAY=:99" >> $GITHUB_ENV
 
-      # List contents of the directory
-      - name: List contents
-        run: ls
+      - name: List contents of root directory
+        run: |
+          echo "Listing root directory contents"
+          ls -la
 
-      # Compile classes to test
       - name: Compile classes
         working-directory: ./src
-        run: javac -cp "../testresources/junit-platform-console-standalone-1.6.0.jar" ./ST10445830/ST10445830.java ./ST10445830/Login.java ./ST10445830/Task.java "../test/ST10445830/ST10445830Test.java" "../test/ST10445830/TaskTest.java"
+        run: |
+          echo "Compiling Java classes"
+          javac -cp "../testresources/junit-platform-console-standalone-1.6.0.jar" \
+                ./ST10445830/ST10445830.java \
+                ./ST10445830/Login.java \
+                ./ST10445830/Task.java \
+                "../test/ST10445830/ST10445830Test.java" \
+                "../test/ST10445830/TaskTest.java"
       
-      # List contents of src to verify that classes compiled
       - name: List contents of src directory after compile
         working-directory: ./src/ST10445830
-        run: ls
+        run: |
+          echo "Listing contents of src directory after compile"
+          ls -la
 
-      # Create testresources directory if it doesn't exist
       - name: Create testresources directory
-        run: mkdir -p testresources/ST10445830
+        run: |
+          echo "Creating testresources directory"
+          mkdir -p testresources/ST10445830
 
-      # Copy compiled classes to testresources directory
       - name: Copy compiled classes to testresources directory
         working-directory: ./src/ST10445830
-        run: cp ST10445830.class Login.class Task.class ../../testresources/ST10445830
+        run: |
+          echo "Copying compiled classes to testresources directory"
+          cp ST10445830.class Login.class Task.class ../../testresources/ST10445830
 
-      # Copy compiled test classes to testresources directory
       - name: Copy compiled test classes to testresources directory
         working-directory: ./test/ST10445830
-        run: cp ST10445830Test.class TaskTest.class ../../testresources/ST10445830
+        run: |
+          echo "Copying compiled test classes to testresources directory"
+          cp ST10445830Test.class TaskTest.class ../../testresources/ST10445830
 
-      # List contents of testresources directory to verify files were copied
       - name: List contents of testresources directory
-        run: ls testresources/ST10445830
+        run: |
+          echo "Listing contents of testresources directory"
+          ls -la testresources/ST10445830
 
-      # Run main class tests and create report
       - name: Run main class tests and create report
         working-directory: ./test
         run: |
-          ls
-          java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" org.junit.platform.console.ConsoleLauncher --select-class ST10445830.ST10445830Test
+          echo "Running main class tests"
+          java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" \
+               org.junit.platform.console.ConsoleLauncher --select-class ST10445830.ST10445830Test
           
-      # Run Task class tests and create report
       - name: Run Task class tests and create report
         working-directory: ./test
         run: |
-          ls
-          java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" org.junit.platform.console.ConsoleLauncher --select-class ST10445830.TaskTest
+          echo "Running Task class tests"
+          java -cp "../testresources/junit-platform-console-standalone-1.6.0.jar:../testresources" \
+               org.junit.platform.console.ConsoleLauncher --select-class ST10445830.TaskTest
