@@ -337,15 +337,13 @@ public class Task {
         JOptionPane.showMessageDialog(null, developerTasks);
     }
 
-    public static void DeleteTask() {
-        String Delete = JOptionPane.showInputDialog(null, "Enter the name of the task you would like to delete");
-
-        if (Delete != null && !Delete.isEmpty()) {
+    public static String getDeleteTask(String delete) {
+        if (delete != null && !delete.isEmpty()) {
             boolean found = false;
             int indexToDelete = -1;
 
             for (int i = 0; i <= taskCounter; i++) {
-                if ((names[i] != null && names[i].equals(Delete))) {
+                if ((names[i] != null && names[i].equals(delete))) {
                     indexToDelete = i;
                     found = true;
                     break;
@@ -368,9 +366,16 @@ public class Task {
                 status[taskCounter] = null;
 
                 taskCounter--;
-                JOptionPane.showMessageDialog(null, "Task deleted");
+                return "task deleted";
             }
-        }
+        } return "Task not found";
+    }
+    
+    public static void DeleteTask(){
+        
+        String nameinput = JOptionPane.showInputDialog(null,"Enter A task name to delete that task");
+        String output = getDeleteTask(nameinput);
+        JOptionPane.showMessageDialog(null,output);
     }
 
     public static void AllTasks() {
