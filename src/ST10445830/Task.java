@@ -267,7 +267,7 @@ public class Task {
     public static String LongestDuration() {
         if (taskCounter == -1) {
             JOptionPane.showMessageDialog(null, "No tasks available.");
-           
+
         }
 
         int longestDurationIndex = 0;
@@ -287,16 +287,12 @@ public class Task {
 
         String TaskDetails = TaskBuilder.toString();
         JOptionPane.showMessageDialog(null, TaskDetails);
-        
-         return TaskDetails;
+
+        return TaskDetails;
     }
 
-    public static void SearchTask() {
-
-        String searchText = JOptionPane.showInputDialog(null, "Enter a task name to search");
-
+    public static String getSearchTask(String searchText) {
         if (searchText != null && !searchText.isEmpty()) {
-
             StringBuilder TaskBuilder = new StringBuilder();
 
             for (int i = 0; i <= taskCounter; i++) {
@@ -307,29 +303,38 @@ public class Task {
 
                 }
             }
-            String TaskDetails = TaskBuilder.toString();
-            JOptionPane.showMessageDialog(null, TaskDetails);
+           String result = TaskBuilder.toString().trim();
+            return result.isEmpty() ? "No tasks found." : result;
         }
+        return "No tasks found.";
+    }
+     public static void SearchTask() {
+        String Name = JOptionPane.showInputDialog(null, "Enter a task name to search for tasks");
+        String searchTasks = getSearchTask(Name);
+        JOptionPane.showMessageDialog(null, searchTasks);
     }
 
-    public static void DeveloperTask() { //search for all tasks assigned to a developer and display task name and status
-
-        String developer = JOptionPane.showInputDialog(null, "Enter the developer name to search for tasks");
-
+    public static String getDeveloperTasks(String developer) {
         if (developer != null && !developer.isEmpty()) {
-            StringBuilder TaskBuilder = new StringBuilder();
+            StringBuilder taskBuilder = new StringBuilder();
 
             for (int i = 0; i <= taskCounter; i++) {
                 if (developers[i] != null && developers[i].contains(developer)) {
-                    TaskBuilder.append("Task Name: ").append(names[i]).append("\n")
+                    taskBuilder.append("Task Name: ").append(names[i]).append("\n")
                             .append("Task Status: ").append(status[i]).append("\n\n");
-
                 }
             }
-            String TaskDetails = TaskBuilder.toString();
-            JOptionPane.showMessageDialog(null, TaskDetails);
 
+            String result = taskBuilder.toString().trim();
+            return result.isEmpty() ? "No tasks found for the developer." : result;
         }
+        return "No tasks found for the developer.";
+    }
+
+    public static void DeveloperTask() {
+        String developer = JOptionPane.showInputDialog(null, "Enter the developer name to search for tasks");
+        String developerTasks = getDeveloperTasks(developer);
+        JOptionPane.showMessageDialog(null, developerTasks);
     }
 
     public static void DeleteTask() {
