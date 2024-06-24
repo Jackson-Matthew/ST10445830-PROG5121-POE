@@ -112,17 +112,41 @@ public class TaskTest {
                 + "Task Duration: 11 hours\n";
         String Actual = Task.LongestDuration();
 
-        assertEquals(Expected, Actual);
+        assertEquals(Expected,Actual);
         System.out.println(Actual);
     }
 
     @Test
-    public void testSearchTask() {
-
+    public void testgetSearchTask() {
+      Task.taskCounter = 0;
+        
+      Task.developers[0]= "Mike Smith";
+      Task.names[0]= "Create Login";
+      Task.status[0] = "Done";
+     
+        String Expected = "Task Name: Create Login\nDeveloper details: Mike Smith\nTask Status: Done";
+                
+        String Actual = Task.getSearchTask("Create Login");
+        
+        assertEquals(Expected,Actual);
+        System.out.println(Actual);
+    
     }
 
     @Test
-    public void testDeveloperTask() {
+    public void testgetDeveloperTask() {
+      Task.taskCounter = 0;
+      
+      Task.names[0]= "Create Reports";
+      Task.status[0] = "Done";
+      Task.developers[0]= "Samantha Paulson";
+      
+      String Expected = "Task Name: Create Reports\nTask Status: Done";
+        
+      String Actual = Task.getDeveloperTasks("Samantha Paulson");
+                
+        assertEquals(Expected,Actual);
+        System.out.println(Actual);     
 
     }
 
