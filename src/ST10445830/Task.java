@@ -264,10 +264,10 @@ public class Task {
 
     }
 
-    public static void LongestDuration() {
+    public static String LongestDuration() {
         if (taskCounter == -1) {
             JOptionPane.showMessageDialog(null, "No tasks available.");
-            return;
+           
         }
 
         int longestDurationIndex = 0;
@@ -287,6 +287,8 @@ public class Task {
 
         String TaskDetails = TaskBuilder.toString();
         JOptionPane.showMessageDialog(null, TaskDetails);
+        
+         return TaskDetails;
     }
 
     public static void SearchTask() {
