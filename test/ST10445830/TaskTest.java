@@ -151,8 +151,29 @@ public class TaskTest {
     }
 
     @Test
-    public void testDeleteTask() {
+    public void testgetDeleteTask() {
 
+        Task.taskCounter = 1;
+        Task.names[0] = "Create Reports";
+        Task.developers[0] = "Samantha Paulson";
+        Task.status[0] ="Done";
+        Task.names[1] = "Create Add Features";
+        Task.developers[1] = "Edward Harrison";
+        Task.status[1] ="Doing";
+        
+        String delete = Task.getDeleteTask("Create Reports");
+        
+        assertEquals("task deleted", delete);
+        assertEquals(0, Task.taskCounter);
+        assertEquals("Create Add Features", Task.names[0]);
+        assertEquals("Edward Harrison", Task.developers[0]);
+        assertEquals("Doing", Task.status[0]);
+
+        // Verify the task is not found
+        delete = Task.getDeleteTask("Create Reports");
+        assertEquals("Task not found", delete);
+        System.out.println("Entry"+ delete + "successfully deleted");
+        
     }
 
     @Test
