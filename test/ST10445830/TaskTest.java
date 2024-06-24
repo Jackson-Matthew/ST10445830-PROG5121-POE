@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 
 public class TaskTest {
 
+    /* part 2 UNIT Tests below
+    *
+    * 4 unit tests are used below to test the conditions in part 2
+     */
     @Test //checks if the description is less than 50 characters
     public void testCheckTaskDescription1() {
 
@@ -53,8 +57,7 @@ public class TaskTest {
 
     @Test //tests different ammount of values put in by users,as indicated by the array
     public void testReturnTotalHours() {
-        
-        
+
         int[] taskDurations = {10, 12, 55, 11, 1};
         int Expected = 89;
         int Actual = Task.returnTotalHours(taskDurations);
@@ -63,56 +66,74 @@ public class TaskTest {
         System.out.println(Actual);
 
     }
-/*
-    @Test //tests the creation of 2 tasks throughout the program
-    public void testCreateTasks() {
 
-        // First task stuffs
-        String taskName1 = "Login Feature";
-        String taskDescription1 = "Create Login to authenticate users";
-        String developerDetails1 = "Robyn Harrison";
-        int taskDuration1 = 8;
+    /*part 3 UNIT Tests below
+    *
+    * 6 unit tests are created to test the functionality of the task class specifically 
+    * focusing on the given methods in the Show Report section
+     */
+    
+    @Test //populates the developers array so that it contains the expected test data
+    public void testPopulatedArrays() {
 
-        Task.taskCounter++;
-        String taskID1 = Task.createTaskID(Task.taskCounter, taskName1, developerDetails1);
+        Task.developers[0] = "Mike Smith";
+        Task.developers[1] = "Edward Harrison";
+        Task.developers[2] = "Samantha Paulson";
+        Task.developers[3] = "Glenda Oberholzer";
 
-        assertTrue(Task.checkTaskDescription(taskDescription1));
-        Task.taskDurations[0] = taskDuration1;
+        assertEquals("Mike Smith", Task.developers[0]);
+        assertEquals("Edward Harrison", Task.developers[1]);
+        assertEquals("Samantha Paulson", Task.developers[2]);
+        assertEquals("Glenda Oberholzer", Task.developers[3]);
 
-        String Expected1 = "Task Status: To Do\n"
-                + "Developer details: Robyn Harrison\n"
-                + "Task Number: 0\n"
-                + "Task Name: Login Feature\n"
-                + "Task Description: Create Login to authenticate users\n"
-                + "Task ID: LO:0:BYN\n" + "Task Duration: 8\n";
+        System.out.println(Task.developers[0]);
+        System.out.println(Task.developers[1]);
+        System.out.println(Task.developers[2]);
+        System.out.println(Task.developers[3]);
 
-        String Actual1 = Task.printTaskDetails("To Do", developerDetails1, taskName1, taskDescription1, taskID1, String.valueOf(taskDuration1));
-
-        // Second task stuffs
-        String taskName2 = "Add Task Feature";
-        String taskDescription2 = "Create Add Task feature to add task  users";
-        String developerDetails2 = "Mike Smith";
-        int taskDuration2 = 10;
-
-        Task.taskCounter++;
-        String taskID2 = Task.createTaskID(Task.taskCounter, taskName2, developerDetails2);
-
-        assertTrue(Task.checkTaskDescription(taskDescription2));
-        Task.taskDurations[1] = taskDuration2;
-
-        String Expected2 = "Task Status: Doing\n"
-                + "Developer details: Mike Smith\n"
-                + "Task Number: 1\n"
-                + "Task Name: Add Task Feature\n"
-                + "Task Description: Create Add Task feature to add task  users\n"
-                + "Task ID: AD:1:IKE\n"
-                + "Task Duration: 10\n";
-
-        String Actual2 = Task.printTaskDetails("Doing", developerDetails2, taskName2, taskDescription2, taskID2, String.valueOf(taskDuration2));
-
-        // Assert both task details
-        assertEquals(Expected1, Actual1);
-        assertEquals(Expected2, Actual2);
     }
-    */
+
+    @Test //tests the capabilty of the LongestDuration method by determining what test data has the longest duration
+    public void testLongestDuration() { //needs to be refractored so no gui for workflow
+
+        Task.taskCounter = 3;
+
+        Task.taskDurations[0] = 5;
+        Task.taskDurations[1] = 8;
+        Task.taskDurations[2] = 2;
+        Task.taskDurations[3] = 11;
+        Task.developers[0] = "Mike Smith";
+        Task.developers[1] = "Edward Harrison";
+        Task.developers[2] = "Samantha Paulson";
+        Task.developers[3] = "Glenda Oberholzer";
+
+        String Expected = "Task with the Longest Duration: \n"
+                + "Developer details: Glenda Oberholzer\n"
+                + "Task Duration: 11 hours\n";
+        String Actual = Task.LongestDuration();
+
+        assertEquals(Expected, Actual);
+        System.out.println(Actual);
+    }
+
+    @Test
+    public void testSearchTask() {
+
+    }
+
+    @Test
+    public void testDeveloperTask() {
+
+    }
+
+    @Test
+    public void testDeleteTask() {
+
+    }
+
+    @Test
+    public void testAllTasks() {
+
+    }
+
 }
