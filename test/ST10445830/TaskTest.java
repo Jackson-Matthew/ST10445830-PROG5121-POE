@@ -9,6 +9,7 @@ public class TaskTest {
     *
     * 4 unit tests are used below to test the conditions in part 2
      */
+    
     @Test //checks if the description is less than 50 characters
     public void testCheckTaskDescription1() {
 
@@ -110,7 +111,7 @@ public class TaskTest {
         String Expected = "Task with the Longest Duration: \n"
                 + "Developer details: Glenda Oberholzer\n"
                 + "Task Duration: 11 hours\n";
-        String Actual = Task.LongestDuration();
+        String Actual = Task.getLongestDuration();
 
         assertEquals(Expected,Actual);
         System.out.println(Actual);
@@ -122,9 +123,9 @@ public class TaskTest {
         
       Task.developers[0]= "Mike Smith";
       Task.names[0]= "Create Login";
-      Task.status[0] = "Done";
+      Task.status[0] = "To Do";
      
-        String Expected = "Task Name: Create Login\nDeveloper details: Mike Smith\nTask Status: Done";
+        String Expected = "Task Name: Create Login\nDeveloper details: Mike Smith\nTask Status: To Do";
                 
         String Actual = Task.getSearchTask("Create Login");
         
@@ -172,13 +173,60 @@ public class TaskTest {
         // Verify the task is not found
         delete = Task.getDeleteTask("Create Reports");
         assertEquals("Task not found", delete);
-        System.out.println("Entry"+ delete + "successfully deleted");
+        System.out.println("Entry Create reports successfully deleted");
         
     }
 
     @Test
     public void testAllTasks() {
-
+        Task.taskCounter = 3;
+        
+        Task.developers[0]= "Mike Smith";
+        Task.names[0]= "Create Login";
+        Task.taskDurations[0] = 5;
+        Task.status[0] = "To Do";
+      
+        Task.developers[1] = "Edward Harrison";   
+        Task.names[1] = "Create Add Features";
+        Task.taskDurations[1] = 8;
+        Task.status[1] ="Doing";
+        
+        Task.developers[2] = "Samantha Paulson";
+        Task.names[2] = "Create Reports";
+        Task.taskDurations[2] = 2;
+        Task.status[2] ="Done";
+        
+        Task.developers[3] = "Glenda Oberholzer";
+        Task.names[3] = "Add Arrays";
+        Task.taskDurations[3] = 11;
+        Task.status[3] ="To Do";
+        
+        String Expected = "Task Name: Create Login\n" +
+                          "Developer: Mike Smith\n" +
+                          "Task Status: To Do\n" +
+                          "Task Duration: 5 hours\n\n" +
+                
+                          "Task Name: Create Add Features\n" +
+                          "Developer: Edward Harrison\n" +
+                          "Task Status: Doing\n" +
+                          "Task Duration: 8 hours\n\n" +
+                
+                          "Task Name: Create Reports\n" +
+                          "Developer: Samantha Paulson\n" +
+                          "Task Status: Done\n" +
+                          "Task Duration: 2 hours\n\n" +
+        
+                          "Task Name: Add Arrays\n" +
+                          "Developer: Glenda Oberholzer\n" +
+                          "Task Status: To Do\n" +
+                          "Task Duration: 11 hours\n\n";
+        
+                
+        String Actual = Task.getAllTasks("");
+        
+        assertEquals(Expected,Actual);
+        System.out.println(Actual);
+        
     }
 
 }
