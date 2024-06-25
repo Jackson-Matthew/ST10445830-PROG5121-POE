@@ -264,7 +264,7 @@ public class Task {
 
     }
 
-    public static String LongestDuration() {
+    public static String getLongestDuration() {
         if (taskCounter == -1) {
             JOptionPane.showMessageDialog(null, "No tasks available.");
 
@@ -286,9 +286,15 @@ public class Task {
                 .append("Task Duration: ").append(longestDuration).append(" hours\n");
 
         String TaskDetails = TaskBuilder.toString();
-        JOptionPane.showMessageDialog(null, TaskDetails);
 
         return TaskDetails;
+    }
+
+    public static void LongestDuration() {
+
+        String Longest = getLongestDuration();
+        JOptionPane.showMessageDialog(null, Longest);
+
     }
 
     public static String getSearchTask(String searchText) {
@@ -303,12 +309,13 @@ public class Task {
 
                 }
             }
-           String result = TaskBuilder.toString().trim();
+            String result = TaskBuilder.toString().trim();
             return result.isEmpty() ? "No tasks found." : result;
         }
         return "No tasks found.";
     }
-     public static void SearchTask() {
+
+    public static void SearchTask() {
         String Name = JOptionPane.showInputDialog(null, "Enter a task name to search for tasks");
         String searchTasks = getSearchTask(Name);
         JOptionPane.showMessageDialog(null, searchTasks);
@@ -368,17 +375,18 @@ public class Task {
                 taskCounter--;
                 return "task deleted";
             }
-        } return "Task not found";
-    }
-    
-    public static void DeleteTask(){
-        
-        String nameinput = JOptionPane.showInputDialog(null,"Enter A task name to delete that task");
-        String output = getDeleteTask(nameinput);
-        JOptionPane.showMessageDialog(null,output);
+        }
+        return "Task not found";
     }
 
-    public static void AllTasks() {
+    public static void DeleteTask() {
+
+        String nameinput = JOptionPane.showInputDialog(null, "Enter A task name to delete that task");
+        String output = getDeleteTask(nameinput);
+        JOptionPane.showMessageDialog(null, output);
+    }
+
+    public static String getAllTasks(String All) {
 
         StringBuilder TaskBuilder = new StringBuilder();
 
@@ -389,8 +397,13 @@ public class Task {
                     .append("\nTask Duration: ").append(taskDurations[i])
                     .append(" hours\n\n");
         }
-        String TaskDetails = TaskBuilder.toString();
-        JOptionPane.showMessageDialog(null, TaskDetails);
+        return TaskBuilder.toString();
+
+    }
+
+    public static void AllTasks() {
+        String alltasks = getAllTasks("");
+        JOptionPane.showMessageDialog(null, alltasks);
     }
 
 }
