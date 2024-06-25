@@ -153,7 +153,7 @@ public class TaskTest {
 
     @Test
     public void testgetDeleteTask() {
-
+        
         Task.taskCounter = 1;
         Task.names[0] = "Create Reports";
         Task.developers[0] = "Samantha Paulson";
@@ -178,7 +178,7 @@ public class TaskTest {
     }
 
     @Test
-    public void testAllTasks() {
+    public void testAllTasks() { // inputs all the tests data into arrays and scans them through the all tasks method
         Task.taskCounter = 3;
         
         Task.developers[0]= "Mike Smith";
