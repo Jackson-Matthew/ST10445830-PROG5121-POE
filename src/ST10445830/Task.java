@@ -112,7 +112,10 @@ public class Task {
                     if (validDescription) {
                         taskID = createTaskID(taskCounter, TaskName, DeveloperDetails);
 
-                        //arrays are populated in the correct order
+                        /*arrays are populated in the correct order, this ensures that values are input 
+                          when the user creates a task
+                        */
+                        
                         developers[i] = DeveloperDetails;
                         names[i] = TaskName;
                         IDs[i] = taskID;
@@ -140,13 +143,13 @@ public class Task {
 
     }
 
-    //this method checks the lenght of the description
+    //this method checks the lenght of the description  
     public static boolean checkTaskDescription(String description) {
 
         return description.length() <= 50;
     }
 
-    //creates the TaskID by taking info from developer details, task name and task number
+    //creates the TaskID by taking info from developer details, task name and task number  
     public static String createTaskID(int taskNumber, String taskName, String devDetails) {
 
         String firstName = devDetails.split(" ")[0];
@@ -161,8 +164,8 @@ public class Task {
     }
 
     public static String printTaskDetails(String selectedItem, String developerDetails, String taskName,
-            String description, String taskId, String taskDuration) {
-
+        String description, String taskId, String taskDuration) {
+        
         StringBuilder TaskBuilder = new StringBuilder();
 
         TaskBuilder.append("Task Status: ")
@@ -192,8 +195,8 @@ public class Task {
     }
 
     /* Main show report method that has all the options a user can choose from a numeric menu
-    *  these options include the ability to search for specific tasks that have been created aswell
-    *  as display all tasks,delete tasks, show tasks with specific status of done
+       these options include the ability to search for specific tasks that have been created aswell
+       as display all tasks,delete tasks, show tasks with specific status of done
      */
     public static void ShowReport() {
 
@@ -226,7 +229,7 @@ public class Task {
                     LongestDuration();
                     break;
                 case 3: // call the search task method
-                    SearchTask();
+                    SearchTask(); 
                     break;
                 case 4: // call the DeveloperTask method
                     DeveloperTask();
@@ -242,8 +245,13 @@ public class Task {
                     break;
             }
         }
-
     }
+    /* the switch bellow manages all the fucntions that appear in the show report method each case 
+       within the switch calls a differnet method that acts differently, this includes displaying 
+       various functions such as deleteing a task, searching for the longest duratons 
+    
+       If cancel is selected the loop is ended and the program returns to the original main menu
+    */
 
     public static void Done() { //displays developer, task names and durations of all tasks that have done status
 
@@ -255,16 +263,13 @@ public class Task {
                 TaskBuilder.append("Developer: ").append(developers[i])
                         .append("\nTask Name: ").append(names[i])
                         .append("\nTask Duration: ").append(taskDurations[i]).append(" hours\n\n");
-
             }
         }
-
         String TaskDetails = TaskBuilder.toString();
         JOptionPane.showMessageDialog(null, TaskDetails);
-
     }
 
-    public static String getLongestDuration() {
+    public static String getLongestDuration() { //gets the Longest duration amoung all the data
         if (taskCounter == -1) {
             JOptionPane.showMessageDialog(null, "No tasks available.");
 
@@ -290,14 +295,13 @@ public class Task {
         return TaskDetails;
     }
 
-    public static void LongestDuration() {
-
+    public static void LongestDuration() { // displays the longest duration method in JOptionPane
+        
         String Longest = getLongestDuration();
         JOptionPane.showMessageDialog(null, Longest);
-
     }
 
-    public static String getSearchTask(String searchText) {
+    public static String getSearchTask(String searchText) { // searches for a task using a task name 
         if (searchText != null && !searchText.isEmpty()) {
             StringBuilder TaskBuilder = new StringBuilder();
 
@@ -310,18 +314,18 @@ public class Task {
                 }
             }
             String result = TaskBuilder.toString().trim();
-            return result.isEmpty() ? "No tasks found." : result;
+            return result.isEmpty() ? "No tasks found." : result;   //returns empty if there is no task found
         }
         return "No tasks found.";
     }
 
-    public static void SearchTask() {
+    public static void SearchTask() { // displays the search task method in JOptionPane  
         String Name = JOptionPane.showInputDialog(null, "Enter a task name to search for tasks");
         String searchTasks = getSearchTask(Name);
         JOptionPane.showMessageDialog(null, searchTasks);
     }
 
-    public static String getDeveloperTasks(String developer) {
+    public static String getDeveloperTasks(String developer) { //searchign for a developer and displaying the task name and status   
         if (developer != null && !developer.isEmpty()) {
             StringBuilder taskBuilder = new StringBuilder();
 
@@ -338,13 +342,13 @@ public class Task {
         return "No tasks found for the developer.";
     }
 
-    public static void DeveloperTask() {
+    public static void DeveloperTask() { //displays the developer in the form of JOptionPane
         String developer = JOptionPane.showInputDialog(null, "Enter the developer name to search for tasks");
         String developerTasks = getDeveloperTasks(developer);
         JOptionPane.showMessageDialog(null, developerTasks);
     }
 
-    public static String getDeleteTask(String delete) {
+    public static String getDeleteTask(String delete) { //deletes a specificed task from the array
         if (delete != null && !delete.isEmpty()) {
             boolean found = false;
             int indexToDelete = -1;
@@ -356,7 +360,13 @@ public class Task {
                     break;
                 }
             }
-
+            /* 
+               In order to delete a few specific elements from an array the method must be able to locate where they are.
+               A task name is entered and then passed through a loop that will identify what elements are assocated with
+               that specific task name, these elements are then shifted within the array to enusre they cannot be located
+            */
+            
+            
             if (found && indexToDelete != -1) {
                 for (int i = indexToDelete; i < taskCounter; i++) {
                     developers[i] = developers[i + 1];
@@ -365,7 +375,11 @@ public class Task {
                     taskDurations[i] = taskDurations[i + 1];
                     status[i] = status[i + 1];
                 }
-
+            /*
+               so that the elements don't clash with eachother when they are shifted the task counter variable is passed through
+               each element and made null so that in cannot be recognised and does not mess up the position of elements that
+               might be in the same place   
+            */
                 developers[taskCounter] = null;
                 names[taskCounter] = null;
                 IDs[taskCounter] = null;
@@ -379,15 +393,15 @@ public class Task {
         return "Task not found";
     }
 
-    public static void DeleteTask() {
-
+    public static void DeleteTask() {  // displays the delete task in JOptionPane for user to input task name to delete
+         
         String nameinput = JOptionPane.showInputDialog(null, "Enter A task name to delete that task");
         String output = getDeleteTask(nameinput);
         JOptionPane.showMessageDialog(null, output);
     }
 
-    public static String getAllTasks(String All) {
-
+    public static String getAllTasks(String All) { //passes all elements in the arrays and displays them in string builder                                                  
+                                                   
         StringBuilder TaskBuilder = new StringBuilder();
 
         for (int i = 0; i <= taskCounter; i++) {
@@ -401,7 +415,7 @@ public class Task {
 
     }
 
-    public static void AllTasks() {
+    public static void AllTasks() { //displays all tasks created in JOptionPane form
         String alltasks = getAllTasks("");
         JOptionPane.showMessageDialog(null, alltasks);
     }
