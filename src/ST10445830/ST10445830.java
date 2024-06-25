@@ -5,18 +5,15 @@ public class ST10445830 {
 
     public static void main(String[] args) {
 
-        /*
-        
+        /*    
         Login.name_surname();
 
         Login.checkUserName();
 
         Login.checkPasswordComplexity();
 
-        Login.loginUser();
-        
+        Login.loginUser();     
         */
-
         Task.menu1();
 
     }
